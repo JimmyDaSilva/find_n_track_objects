@@ -1,0 +1,30 @@
+<launch>
+
+  <arg name="kinect_name" default="camera"/>
+
+  <node pkg="nodelet" type="nodelet" args="manager"
+        name="$(arg kinect_name)_roi_manager" output="screen" />
+
+  <node pkg="nodelet" type="nodelet" name="$(arg kinect_name)_roi_rgb_nodelet"
+	args="load image_proc/crop_decimate $(arg kinect_name)_roi_manager" output="screen" >
+    <remap from="camera/image_raw" to="$(arg kinect_name)/rgb/image_rect_color" />
+    <remap from="camera/camera_info" to="$(arg kinect_name)/rgb/camera_info" />
+    <remap from="camera_out/image_raw" to="$(arg kinect_name)/rgb_cropped/image_rect_color" />
+    <remap from="camera_out/camera_info" to="$(arg kinect_name)/rgb_cropped/camera_info" />
+    <param name="x_offset" value="0" />
+    <param name="y_offset" value="200" />
+    <param name="width" value="320" />
+    <param name="height" value="240" />
+  </node>
+
+  <node pkg="nodelet" type="nodelet" name="$(arg kinect_name)_roi_depth_nodelet"
+	args="load image_proc/crop_decimate $(arg kinect_name)_roi_manager" output="screen" >
+    <remap from="camera/image_raw" to="$(arg kinect_name)/depth_registered/image_raw" />
+    <remap from="camera/camera_info" to="$(arg kinect_name)/depth_registered/camera_info" />
+    <remap from="camera_out/image_raw" to="$(arg kinect_name)/depth_cropped/image_raw" />
+    <remap from="camera_out/camera_info" to="$(arg kinect_name)/depth_cropped/camera_info" />
+    <param name="width" value="200" />
+    <param name="height" value="200" />
+  </node>
+
+</launch>

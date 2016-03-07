@@ -1,0 +1,7 @@
+<launch>
+
+  <arg name="kinect_name" default="camera" />
+
+  <node name="$(arg kinect_name)_linemod_node" pkg="object_recognition_core" type="detection" args="-c $(find find_n_track_objects)/conf/linemod_$(arg kinect_name).conf" output="screen" />
+
+</launch>
