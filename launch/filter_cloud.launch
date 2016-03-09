@@ -1,0 +1,7 @@
+<launch>
+
+  <node name="filter_cloud" pkg="find_n_track_objects" type="filter_cloud_to_images" output="screen">
+    <rosparam param="clipping_rules">[z, GT, -0.1, z, LT, 0.3, x, GT, 0.5, y, LT, 0.5 ]</rosparam>
+  </node>
+
+</launch>

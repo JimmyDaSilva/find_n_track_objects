@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(find_n_track_objects)
 
+## Find non-catkin packages
+find_package(PCL 1.7 REQUIRED)
+include_directories(${PCL_INCLUDE_DIRS})
+include_directories(${PCL_LIBRARY_DIRS})
+add_definitions(${PCL_DEFINITIONS})
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -10,6 +16,11 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   visualization_msgs
+  pcl_ros
+  pcl_conversions
+  tf
+  tf_conversions
+  cv_bridge
 )
 
 ## System dependencies are found with CMake's conventions
@@ -117,6 +128,7 @@ catkin_package(
 # include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
+  include
 )
 
 ## Declare a C++ library
@@ -130,16 +142,14 @@ include_directories(
 # add_dependencies(find_n_track_objects ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-# add_executable(find_n_track_objects_node src/find_n_track_objects_node.cpp)
+add_executable(filter_cloud_to_images src/filtered_cloud_to_images.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(find_n_track_objects_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(find_n_track_objects_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(filter_cloud_to_images ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 
 #############
 ## Install ##
