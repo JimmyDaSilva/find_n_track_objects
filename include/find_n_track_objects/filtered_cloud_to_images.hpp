@@ -53,11 +53,12 @@ typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::PointCloud2
 
 ros::Publisher pub_depth_image_, pub_rgb_image_; 
 pcl::PointCloud<pcl::PointXYZRGB>::Ptr pcl_cloud_;
-std::string outframe_ = "base_link";
-std::string inputframe_ = "kinect1_depth_optical_frame";
+std::string outframe_;
+std::string inputframe_;
 pcl::CropBox<pcl::PointXYZRGB> cropFilter_; 
 cv_bridge::CvImagePtr cv_rgb_mask_, cv_depth_image_;
 sensor_msgs::Image::Ptr final_depth_image_, rgb_image_;
+cv::Mat depth_mat_;
 
 void kinectCallback(const sensor_msgs::PointCloud2::ConstPtr &ros_cloud, const sensor_msgs::Image::ConstPtr &ros_depth_image);
 

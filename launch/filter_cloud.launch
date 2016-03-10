@@ -1,7 +1,14 @@
 <launch>
 
   <node name="filter_cloud" pkg="find_n_track_objects" type="filter_cloud_to_images" output="screen">
-    <rosparam param="clipping_rules">[z, GT, -0.1, z, LT, 0.3, x, GT, 0.5, y, LT, 0.5 ]</rosparam>
+    <param name="table_frame" value="base_link" />
+    <param name="sensor_frame" value="kinect1_depth_optical_frame" />
+    <param name="min_x_box" value="0.40" />
+    <param name="max_x_box" value="0.90" />
+    <param name="min_y_box" value="-0.25" />
+    <param name="max_y_box" value="0.5" />
+    <param name="box_height" value="0.5" />
+    <param name="height_offset" value="-0.08" />
   </node>
 
 </launch>
