@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(find_n_track_objects)
 
+set(CMAKE_BUILD_TYPE Release)
+
 ## Find non-catkin packages
 find_package(PCL 1.7 REQUIRED)
 include_directories(${PCL_INCLUDE_DIRS})
